@@ -41,6 +41,7 @@ resource "abbey_identity" "dev_user" {
 }
 
 resource "azuread_user" "user_hat" {
+  display_name = "hat_user"
   user_principal_name = "hat_abbey.io#EXT#@hatabbey.onmicrosoft.com"
 }
 
