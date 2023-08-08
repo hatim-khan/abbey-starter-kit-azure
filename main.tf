@@ -46,8 +46,8 @@ data "azuread_user" "user_hat" {
 
 
 
-resource "abbey_grant_kit" "dev_group" {
-  name = "dev_group"
+resource "abbey_grant_kit" "dev" {
+  name = "dev"
   description = <<-EOT
     Grants access to our Azure quickstart group.
   EOT
