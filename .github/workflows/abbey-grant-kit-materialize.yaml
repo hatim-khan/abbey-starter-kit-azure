@@ -1,0 +1,35 @@
+name: Abbey Grant Kit Materialize
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_abbey_token: ${{ secrets.ABBEY_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        env:
+          TF_HTTP_USERNAME: quickstart
+          TF_HTTP_PASSWORD: ${{ secrets.ABBEY_TOKEN }}
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+        env:
+          TF_HTTP_USERNAME:   quickstart
+          TF_HTTP_PASSWORD:   ${{ secrets.ABBEY_TOKEN }}
+          TF_VAR_abbey_token: ${{ secrets.ABBEY_TOKEN }}
