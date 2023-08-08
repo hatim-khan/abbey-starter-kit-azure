@@ -25,8 +25,8 @@ provider "abbey" {
   bearer_auth = var.abbey_token
 }
 
-resource "azuread_group" "quickstart_group" {
-  display_name = "quickstart_group"
+resource "azuread_group" "dev_group" {
+  display_name = "dev_group"
   security_enabled = true
 }
 
@@ -41,8 +41,8 @@ resource "abbey_identity" "dev_user" {
 }
 
 
-resource "abbey_grant_kit" "azure_quickstart_group" {
-  name = "azure_quickstart_group"
+resource "abbey_grant_kit" "dev_group" {
+  name = "dev_group"
   description = <<-EOT
     Grants access to our Azure quickstart group.
   EOT
@@ -67,7 +67,7 @@ resource "abbey_grant_kit" "azure_quickstart_group" {
     location = "github://hatim-khan/abbey-starter-kit-azure/access.tf" # CHANGEME
     append = <<-EOT
       resource "azuread_group_member" "group_member" {
-        group_object_id  = "${azuread_group.quickstart_group.id}"
+        group_object_id  = "${azuread_group.dev_group.id}"
         member_object_id = "{{ .data.system.abbey.identities.azure.upn }}"
       }
     EOT
