@@ -71,8 +71,8 @@ resource "abbey_grant_kit" "azure_quickstart_group" {
     location = "github://hatim-khan/abbey-starter-kit-azure/access.tf" # CHANGEME
     append = <<-EOT
       resource "azuread_group_member" "group_member" {
-        group_object_id  = "${azuread_group.abbey_read_group.id}"
-        member_object_id = "${data.system.abbey.identities.azure.upn}"
+        group_object_id  = "${azuread_group.azure_quickstart_group.id}"
+        member_object_id = "{{ .data.system.abbey.identities.azure.upn }}"
       }
     EOT
   }
