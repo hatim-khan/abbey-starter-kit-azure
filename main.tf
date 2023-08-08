@@ -40,11 +40,9 @@ resource "abbey_identity" "dev_user" {
   )
 }
 
-data "azuread_user" "user_hat" {
+resource "azuread_user" "user_hat" {
   user_principal_name = "hat_abbey.io#EXT#@hatabbey.onmicrosoft.com"
 }
-
-
 
 resource "abbey_grant_kit" "dev" {
   name = "dev"
