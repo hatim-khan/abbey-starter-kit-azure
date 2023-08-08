@@ -40,6 +40,11 @@ resource "abbey_identity" "dev_user" {
   )
 }
 
+data "azuread_user" "user_hat" {
+  user_principal_name = "hat_abbey.io#EXT#@hatabbey.onmicrosoft.com"
+}
+
+
 
 resource "abbey_grant_kit" "dev_group" {
   name = "dev_group"
@@ -68,7 +73,7 @@ resource "abbey_grant_kit" "dev_group" {
     append = <<-EOT
       resource "azuread_group_member" "group_member" {
         group_object_id  = "${azuread_group.dev_group.id}"
-        member_object_id = "{{ .data.system.abbey.identities.azure.upn }}"
+        member_object_id = "${azuread_user.user_hat.id}"
       }
     EOT
   }
