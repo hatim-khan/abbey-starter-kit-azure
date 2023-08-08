@@ -40,8 +40,7 @@ resource "abbey_identity" "dev_user" {
   )
 }
 
-resource "azuread_user" "user_hat" {
-  display_name = "hat_user"
+data "azuread_user" "user_hat" {
   user_principal_name = "hat_abbey.io#EXT#@hatabbey.onmicrosoft.com"
 }
 
@@ -72,7 +71,7 @@ resource "abbey_grant_kit" "dev" {
     append = <<-EOT
       resource "azuread_group_member" "group_member" {
         group_object_id  = "${azuread_group.dev_group.id}"
-        member_object_id = "${azuread_user.user_hat.id}"
+        member_object_id = "${data.azuread_user.user_hat.id}"
       }
     EOT
   }
